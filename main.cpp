@@ -8,6 +8,12 @@
 //#include"myVector.cpp"
 using namespace std;
 
+void display(myVector<int> vec)
+{
+	for (int i = 0; i < vec.size(); i++)
+		cout << vec[i] << endl;
+}
+
 void test01(){
 
     myVector<int> vec1;
@@ -33,19 +39,68 @@ void test02(){
     vect1 = vect3;
     std::cout << vect3.size() << std::endl;
     std::cout << vect3.find_f(3, 0, 3) << std::endl;
-    vect3.unsort();
-    std::cout << vect3[0] << std::endl;
-    std::cout << vect3[1] << std::endl;
-    std::cout << vect3[2] << std::endl;
-    std::cout << vect3[3] << std::endl;
-    std::cout << vect3[4] << std::endl;
-    std::cout << rand() << std::endl;
+    
+	display(vect3);
+    
+    //std::cout << rand() << std::endl;
+	vect3.unsort();
+	cout<< "this is the vector4" << endl;
+	myVector<int> vector4(vect3, 0,4);
+	display(vector4);
+    //std::cout << rand() << std::endl;
+}
+
+/*
+Here is the function to test the insert function;
+*/
+
+void test03()
+{
+	srand((unsigned)time(NULL));
+	int arr[4] = {1,3,4,5};
+	// construct one vector1 
+	myVector<int> vect1(arr,0,4);
+	vect1.insert(4,10);
+	vect1.unsort();
+	vect1.insert(101);
+	display(vect1);
+	
+	// this is used to test how to remove the elements;
+	
+	vect1.remove(4);
+	std::cout << "this is the output after remove" << std::endl;
+	
+	display(vect1);
+	
+	vect1.remove(10);
+}
+
+void test04()
+{
+	// used to test deduplicate functions
+	int arr[7] = {4,4,2,9,3,4,1};
+	myVector<int> vect1(arr,0,7);
+	display(vect1);
+	//std::cout << "find one value from the vectoe " <<vect1.find_f(3) << std::endl;
+	
+	//vect1.remove(3);
+	//std::cout << "the size is " <<vect1.size() << std::endl;
+	// here confront the problem that always remove all the data;
+	vect1.deduplicate();
+	std::cout << "the size is " <<vect1.size() << std::endl;
+	display(vect1);
+	std::cout << "do the sort" <<vect1.size() << std::endl;
+	// here is to test the sort function;
+	vect1.sort(1,5);
+	display(vect1);
 }
 
 int main()
 {
 
 
-    test02();
+    //test02();
+	//test03();
+	test04();
     return 0;
 }
