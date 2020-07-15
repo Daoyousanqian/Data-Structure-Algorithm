@@ -52,7 +52,9 @@ template <typename T> class myVector
 		void sort(Rank lo, Rank hi);
 	
 		void bubbleSort(Rank lo, Rank hi){while(!bubble(lo, hi--));}
-    protected:
+		void mergeSort(Rank lo, Rank hi);
+		
+	protected:
         Rank _size; int _capacity; T *_elem;
         void copyFrom(T const* A , Rank lo, Rank hi);
         void expand();  // expand the storage space
@@ -62,6 +64,8 @@ template <typename T> class myVector
 		bool bubble(Rank lo, Rank hi);
 		void selectSort(Rank lo, Rank hi);
 		Rank max(Rank lo, Rank hi);
+		void merge(Rank lo, Rank mi, Rank hi);
+		
     private:
 };
 
@@ -194,6 +198,8 @@ void myVector<T> :: sort(Rank lo, Rank hi){
 	switch (rand()%3){
 		case 1: bubbleSort(lo, hi); break;
 		case 2: selectSort(lo, hi); break;
+		case 3: mergeSort(lo, hi); break;
+		default: mergeSort(lo, hi); break;
 	
 	}
 }
@@ -236,10 +242,62 @@ Rank myVector<T> :: max(Rank lo, Rank hi)
 }
 
 
+// merge sort use the divide and solve stratergy 
+template <typename T>
+void myVector<T> :: mergeSort(Rank lo, Rank hi)    
+{
+	if(hi - lo < 2) return;
+	
+	// here I made a mistake the middle value should be the hi+lo shift to right
+	int mi = (hi+lo) >> 1;
+	mergeSort(lo, mi); 
+	mergeSort(mi, hi);
+	merge(lo, mi, hi);	
+}
 
-
-
-
+template <typename T>
+void myVector<T> :: merge(Rank lo, Rank mi, Rank hi)
+{
+	int l_left = mi-lo;
+	int l_right = hi - mi;
+	T* A = _elem + lo;  // assign the address to A 
+	T* D = _elem + mi;
+	T* B = new T[l_left];// allocation new memery B to copy A;
+	T* C = new T[l_right];
+	// copy elements to B
+	//std::cout  <<"left part length is "<< l_left << std::endl;
+	//std::cout  <<"right part length is "<< l_right << std::endl;
+	//std::cout  <<"right part length is "<< lo << mi << std::endl;
+	for(int i = 0; i < l_left; i++ )
+	{	
+		B[i] = A[i];
+		//std::cout  <<"the value of B"<< std::endl;
+		//std::cout  <<B[i] << std::endl;
+	}
+	
+	for(int i = 0; i < l_right; i++ )
+	{	
+		C[i] = D[i];
+		//std::cout  <<C[i] << std::endl;
+	}
+	// 1, the logic here is to put the left part and right part
+	// in B and C, 
+	// 2, and select the smaller one to do i++;
+	// 3, and also avoid B or C could be empty ;
+	for(int i = 0, j = 0, k = 0; ((j<l_left) || (k < l_right));)
+	{
+		//std::cout  << i << j << k << std::endl;
+		if ((j<l_left)&&((B[j] <= C[k]) || !(k < l_right)))
+			A[i++] = B[j++];
+		if((k < l_right) && ((C[k]< B[j])|| !(j < l_left)))
+			A[i++] = C[k++];
+		//std::cout  <<"the value of A" << std::endl;
+		//std::cout  <<A[i] << std::endl;
+		//std::cout  << j << std::endl;
+	}
+	delete [] B;
+	delete [] C; 
+}
 
 
 

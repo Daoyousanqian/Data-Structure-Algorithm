@@ -78,8 +78,8 @@ void test03()
 void test04()
 {
 	// used to test deduplicate functions
-	int arr[7] = {4,4,2,9,3,4,1};
-	myVector<int> vect1(arr,0,7);
+	int arr[7] = {10,2,9,3};
+	myVector<int> vect1(arr,0,4);
 	display(vect1);
 	//std::cout << "find one value from the vectoe " <<vect1.find_f(3) << std::endl;
 	
@@ -89,9 +89,9 @@ void test04()
 	vect1.deduplicate();
 	std::cout << "the size is " <<vect1.size() << std::endl;
 	display(vect1);
-	std::cout << "do the sort" <<vect1.size() << std::endl;
+	std::cout << "do the sortING " <<vect1.size() << std::endl;
 	// here is to test the sort function;
-	vect1.sort(1,5);
+	vect1.mergeSort(0,4);
 	display(vect1);
 }
 
