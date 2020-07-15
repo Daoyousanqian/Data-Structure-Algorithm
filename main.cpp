@@ -95,12 +95,26 @@ void test04()
 	display(vect1);
 }
 
+void test05(){
+	// here is to test the merge sort
+	// and the uniquify function;
+	int arr[8] = {10,2,9,3,3,72,2,6};
+	myVector<int> vect1(arr,0,8);
+	display(vect1);
+	vect1.mergeSort(0,8);
+	display(vect1);
+	// no problem
+	vect1.uniquify();
+	display(vect1);
+	//vect1.traverse();
+}
 int main()
 {
 
 
     //test02();
 	//test03();
-	test04();
+	//test04();
+	test05();
     return 0;
 }

@@ -35,7 +35,7 @@ template <typename T> class myVector
         Rank size() const {return _size;}  // read only function should add const after the functions
         Rank find_f(T const& e, Rank lo, Rank hi) const;
         Rank find_f(T const& e) {return find_f( e, 0, _size-1);}
-
+		int  disordered() const;
 
         // COULD WRITE THE DATA
         T& operator[](Rank r) const {return _elem[r];};
@@ -54,6 +54,9 @@ template <typename T> class myVector
 		void bubbleSort(Rank lo, Rank hi){while(!bubble(lo, hi--));}
 		void mergeSort(Rank lo, Rank hi);
 		
+		void traverse(void (*visit)(T&));
+		int uniquify();
+		int uniquify_h();
 	protected:
         Rank _size; int _capacity; T *_elem;
         void copyFrom(T const* A , Rank lo, Rank hi);
@@ -299,17 +302,49 @@ void myVector<T> :: merge(Rank lo, Rank mi, Rank hi)
 	delete [] C; 
 }
 
+template <typename T>
+void myVector<T> :: traverse(void (*visit)(T&))
+{
+	for(int i = 0; i < _size; i++) visit(_elem[i]);
+}
 
+// this function is used to count the number that disordered;
+template <typename T>
+int myVector<T> :: disordered()const
+{
+	
+	int count =0;
+	for (int i = _size - 1 ; i > 0; i--)
+		if(_elem[i] < _elem[i-1]) count++;
+	
+	return count; // when it is in order retrun 0;
+	
+}
 
+// this function is used to remove repeated elements 
+// it is not efficient
+template <typename T>
+int myVector<T> :: uniquify(){
+	int old_Size = _size, i = 1;
+	while(i< _size)
+		(_elem[i-1] == _elem[i])? remove(i): i++;
+	return old_Size - _size;
+		
+}
 
+template <typename T>
+int myVector<T> :: uniquify_h()
+{	// the idea is that copy the different element one by one;
+	
+	int i = 0 , j = 1;
+	for(; j < _size ;j++)
+		if(_elem[i] != _elem[j])
+			_elem[++i] = _elem[j];
+	_size = ++i; shrink();
+	return i; 
+}
 
-
-
-
-
-
-
-
+// to write the search function
 
 
 
