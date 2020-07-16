@@ -36,7 +36,10 @@ template <typename T> class myVector
         Rank find_f(T const& e, Rank lo, Rank hi) const;
         Rank find_f(T const& e) {return find_f( e, 0, _size-1);}
 		int  disordered() const;
-
+		static Rank binSearch(T const& e, T*A, Rank lo, Rank hi);
+		Rank search (T const& e, Rank lo, Rank hi) const;
+		
+		
         // COULD WRITE THE DATA
         T& operator[](Rank r) const {return _elem[r];};
         myVector<T>& operator= (myVector<T> const &);
@@ -198,7 +201,7 @@ int myVector<T> :: deduplicate()
 
 template <typename T>
 void myVector<T> :: sort(Rank lo, Rank hi){
-	switch (rand()%3){
+	switch (rand()%4){
 		case 1: bubbleSort(lo, hi); break;
 		case 2: selectSort(lo, hi); break;
 		case 3: mergeSort(lo, hi); break;
@@ -345,6 +348,40 @@ int myVector<T> :: uniquify_h()
 }
 
 // to write the search function
+
+// binSearch is a static function which is not dependent on class,
+// it should be stored in global variable 
+// that is why T* A is one arguement
+// static function are not in the scope of class
+template <typename T>
+ Rank myVector<T>:: binSearch (T const &e, T *A, Rank lo, Rank hi)
+{
+	while(lo < hi )
+	{
+		Rank mi = (hi + lo) >>1;
+		if (e == A[mi]) return mi;
+		else if (e < A[mi]) hi = mi  ;
+		else lo = mi +1;
+		
+	}
+	return -1; // serach failed
+}
+
+template <typename T>
+Rank myVector<T> :: search (T const& e, Rank lo, Rank hi) const
+{
+	return (rand()%2) ? \
+	binSearch(e , _elem, lo, hi) : binSearch(e , _elem, lo, hi);
+	
+}
+
+
+
+
+
+
+
+
 
 
 

@@ -108,6 +108,17 @@ void test05(){
 	display(vect1);
 	//vect1.traverse();
 }
+
+void test06(){
+	int arr[8] = {10,2,9,3,3,72,2,6};
+	myVector<int> vect1(arr,0,8);
+	vect1.mergeSort(0,vect1.size());
+	vect1.uniquify();
+	display(vect1);
+	cout<< vect1.search(9, 0, vect1.size()) << vect1.search(1, 0, vect1.size()) << endl;
+}
+
+
 int main()
 {
 
@@ -115,6 +126,7 @@ int main()
     //test02();
 	//test03();
 	//test04();
-	test05();
+	//test05();
+	test06();
     return 0;
 }
