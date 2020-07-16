@@ -7,6 +7,7 @@ typedef int Rank; // rank of the vector
 #include<ctime>
 #include<stdio.h>
 #include<iostream>
+//#include<fib.h>
 //#include"myVector.cpp"
 
 template <typename T> class myVector
@@ -37,6 +38,7 @@ template <typename T> class myVector
         Rank find_f(T const& e) {return find_f( e, 0, _size-1);}
 		int  disordered() const;
 		static Rank binSearch(T const& e, T*A, Rank lo, Rank hi);
+		static Rank binSearch_A(T const& e, T*A, Rank lo, Rank hi);
 		Rank search (T const& e, Rank lo, Rank hi) const;
 		
 		
@@ -376,9 +378,16 @@ Rank myVector<T> :: search (T const& e, Rank lo, Rank hi) const
 }
 
 
-
-
-
+template <typename T>
+Rank myVector<T>:: binSearch_A (T const &e, T *A, Rank lo, Rank hi)
+{
+	while( hi - lo > 1)
+	{
+		Rank mi = (hi + lo ) >> 1;
+		(e < A[mi]) ? hi = mi : lo = mi;
+	}
+	return (e == A[lo])? lo: -1; // make the lo is the value we search
+}
 
 
 
