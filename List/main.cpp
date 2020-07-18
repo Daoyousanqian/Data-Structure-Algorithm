@@ -116,6 +116,8 @@ void test06(){
 	vect1.mergeSort(0,vect1.size());
 	vect1.uniquify();
 	display(vect1);
+	//increase(std::vect1 );
+	//increase(std::vect1 );
 	cout<< vect1.search(9, 0, vect1.size()) << vect1.search(1, 0, vect1.size()) << endl;
 }
 
@@ -126,15 +128,22 @@ void test07()
 	//myList<int> list_1;
 	myList<int> mylist;
 	
-	for(int i = 0 ; i < 10; i++)
-		mylist.insertAsLast(i);
+	for(int i = 0 ; i < 11; i++)
+		mylist.insertAsLast(i+1);
 	int a = mylist[2];
 	cout << mylist.size() << endl;
-	cout << mylist.find(100) << endl;
+	cout << mylist.find(1)->data << endl;
 	myList<int> mylist2(mylist);
 	cout << mylist2.size() << endl;
 	cout << mylist2[0] << endl;
-	myList<int> mylist3(mylist, 3, 3);
+	mylist2[1] = 0;
+	mylist2[7] = 0;
+	//mylist2.deduplicate();
+	cout << mylist2.size() << endl;
+	cout << mylist2[0] << mylist2[1] << mylist2[2]<< endl;
+	mylist2.insertionSort(mylist2.first(),mylist2.size());
+	//myList<int> mylist3(mylist, 3, 3);
+	cout << mylist2[0] << mylist2[1] << mylist2[2]<< mylist2[3]<<endl;
 }
 
 int main()
