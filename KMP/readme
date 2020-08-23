@@ -1,0 +1,10 @@
+Here is the KMP algorithm that I changed. 
+The pros of KMP is that the effeciency is much higher than the comparison one by one.
+in this algorithm all the pointer on the main string is never back off.
+
+The first step is to compute the "next" array.
+the method is: find the maximum public substring
+
+During the comparison the pointer on the son_string will be back off following the next array.
+
+Great algorithm.
